@@ -1,0 +1,42 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
+@Entity
+@Table(name = "ticket_assignees",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"ticket_id", "user_id", "project_id"}))
+public class TicketAssignee {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "ticket_id", nullable = false)
+    private Ticket ticket;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
+
+    @ManyToOne
+    @JoinColumn(name = "assigned_by", nullable = false)
+    private User assignedBy;
+
+    private LocalDateTime assignedAt;
+
+    @PrePersist
+    public void onAssign() {
+        assignedAt = LocalDateTime.now();
+    }
+
+    // getters & setters
+}
