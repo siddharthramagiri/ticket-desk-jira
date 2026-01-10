@@ -20,6 +20,5 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private List<ProjectUser> members;
 
-    // getters & setters
 }
 

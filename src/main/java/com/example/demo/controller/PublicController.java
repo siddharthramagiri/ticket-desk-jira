@@ -12,6 +12,6 @@ public class PublicController {
 
     @GetMapping
     public ResponseEntity<ResponseDto> publicRoute() {
-        return ResponseEntity.ok(new ResponseDto("Public Route Accessible to everyone"));
+        return ResponseEntity.ok(new ResponseDto("Health Check :: Public Route Accessible to everyone"));
     }
 }

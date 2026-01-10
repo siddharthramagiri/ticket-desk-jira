@@ -1,12 +1,17 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Getter
+@Setter
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "ticket_assignees",
         uniqueConstraints = @UniqueConstraint(columnNames = {"ticket_id", "user_id", "project_id"}))
 public class TicketAssignee {
@@ -38,5 +43,4 @@ public class TicketAssignee {
         assignedAt = LocalDateTime.now();
     }
 
-    // getters & setters
 }

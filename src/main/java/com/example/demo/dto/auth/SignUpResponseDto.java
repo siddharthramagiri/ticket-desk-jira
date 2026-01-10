@@ -1,4 +1,4 @@
-package com.example.demo.dto.authDto;
+package com.example.demo.dto.auth;
 
 public record SignUpResponseDto(
         Long user_id,

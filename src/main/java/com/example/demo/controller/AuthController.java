@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.authDto.AuthRequestDto;
-import com.example.demo.dto.authDto.LoginResponseDto;
+import com.example.demo.dto.auth.AuthRequestDto;
+import com.example.demo.dto.auth.LoginResponseDto;
 import com.example.demo.security.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

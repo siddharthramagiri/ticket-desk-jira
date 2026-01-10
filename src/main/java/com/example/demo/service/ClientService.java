@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ResponseDto;
-import com.example.demo.dto.ticketDto.NewTicketDto;
+import com.example.demo.dto.tickets.NewTicketDto;
 import com.example.demo.entity.Ticket;
 import com.example.demo.entity.User;
 import com.example.demo.entity.types.Priority;
@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Slf4j

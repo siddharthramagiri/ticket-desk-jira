@@ -1,4 +1,4 @@
-package com.example.demo.dto.ticketDto;
+package com.example.demo.dto.tickets;
 
 import com.example.demo.entity.Ticket;
 import lombok.*;

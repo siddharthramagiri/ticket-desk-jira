@@ -1,8 +1,8 @@
 package com.example.demo.security;
 
 
-import com.example.demo.dto.authDto.LoginResponseDto;
-import com.example.demo.dto.authDto.SignUpResponseDto;
+import com.example.demo.dto.auth.LoginResponseDto;
+import com.example.demo.dto.auth.SignUpResponseDto;
 import com.example.demo.entity.User;
 import com.example.demo.entity.types.Role;
 import com.example.demo.exceptionHandlers.UserException;
@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

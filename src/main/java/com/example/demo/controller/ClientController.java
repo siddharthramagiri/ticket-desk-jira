@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ResponseDto;
-import com.example.demo.dto.ticketDto.NewTicketDto;
+import com.example.demo.dto.tickets.NewTicketDto;
 import com.example.demo.entity.Ticket;
 import com.example.demo.service.ClientService;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.demo.dto.authDto;
+package com.example.demo.dto.auth;
 
 import com.example.demo.entity.types.Role;
 import lombok.Builder;

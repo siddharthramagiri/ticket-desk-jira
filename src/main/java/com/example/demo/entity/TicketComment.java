@@ -33,7 +33,5 @@ public class TicketComment {
     public void onCreate() {
         createdAt = LocalDateTime.now();
     }
-
-    // getters & setters
 }
 
