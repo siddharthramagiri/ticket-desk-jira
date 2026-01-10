@@ -1,10 +1,15 @@
 package com.example.demo.dto.authDto;
 
+import com.example.demo.entity.types.Role;
+import lombok.Builder;
+
 import java.util.Set;
 
+@Builder
 public record LoginResponseDto(
         String token,
-        Long user_id,
-        Set<String> role
+        Long id,
+        String email,
+        Set<Role> roles
 ) {
 }

@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ResponseDto;
+import com.example.demo.dto.users.UserDto;
 import com.example.demo.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @RequestMapping("/admin")
@@ -18,9 +21,14 @@ public class AdminController {
         return ResponseEntity.ok(new ResponseDto("Admin Route Accessed with Admin Credentials"));
     }
 
-    @PostMapping("/role/{id}/{role}")
-    public ResponseEntity<ResponseDto> assignRole(@PathVariable Long id, @PathVariable String role) {
+    @PutMapping("/update/{id}/role")
+    public ResponseEntity<ResponseDto> assignRole(@PathVariable Long id, @RequestParam String role) {
         return adminService.assignRole(id, role);
+    }
+
+    @GetMapping("/all-users")
+    public ResponseEntity<Set<UserDto>> getAllUsers() {
+        return adminService.getAllUsers();
     }
 
     @PostMapping("/make-admin/{id}")

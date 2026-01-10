@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import com.example.demo.entity.types.Priority;
 import com.example.demo.entity.types.TicketStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,6 +40,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
+    @JsonIgnore
     private User createdBy; // customer
 
     private LocalDateTime createdAt;

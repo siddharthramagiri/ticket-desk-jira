@@ -1,14 +1,17 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.authDto.AuthRequestDto;
+import com.example.demo.dto.authDto.LoginResponseDto;
 import com.example.demo.security.AuthService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -17,9 +20,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequestDto request) {
+    public ResponseEntity<LoginResponseDto> login(@RequestBody AuthRequestDto request) {
         String username = request.email();
-
+        log.info("Requesting for /login : {}", username);
         return authService.login(username, request.password());
     }
 

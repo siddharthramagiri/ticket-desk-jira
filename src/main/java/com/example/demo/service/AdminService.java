@@ -1,21 +1,29 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ResponseDto;
+import com.example.demo.dto.users.UserDto;
 import com.example.demo.entity.User;
 import com.example.demo.entity.types.Role;
 import com.example.demo.exceptionHandlers.UserException;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.ObjectMapper;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AdminService {
+
     private final UserRepository userRepository;
+    private final ObjectMapper objectMapper;
 
     public ResponseEntity<ResponseDto> makeAdmin(Long id) {
         Optional<User> optionalUser = userRepository.findUserById(id);
@@ -36,24 +44,24 @@ public class AdminService {
         }
         user.getRoles().clear();
 
-        switch (role.toUpperCase()) {
-            case "ADMIN":
-                user.getRoles().add(Role.ADMIN);
-                break;
-            case "DEVELOPER":
-                user.getRoles().add(Role.DEVELOPER);
-                break;
-            case "CLIENT":
-                user.getRoles().add(Role.CLIENT);
-                break;
-            case "SUPPORT":
-                user.getRoles().add(Role.SUPPORT);
-                break;
-            default:
-                return new ResponseEntity<>(new ResponseDto("InValid Role Type"), HttpStatus.NOT_FOUND);
-        }
-        userRepository.save(user);
+        try {
+            Role userRole = Role.valueOf(role.toUpperCase());
+            user.getRoles().add(userRole);
+            userRepository.save(user);
 
-        return ResponseEntity.ok(new ResponseDto("Successfully Updated Role"));
+            return ResponseEntity.ok(new ResponseDto("Successfully Updated Role"));
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDto("InValid Role Type"), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<Set<UserDto>> getAllUsers() {
+        List<User> all_users = userRepository.findAll();
+
+        Set<UserDto> users = all_users.stream().map(UserDto::new).collect(Collectors.toSet());
+        UserDto me = new UserDto(SecurityUtil.getCurrentUser());
+        users.remove(me);
+
+        return ResponseEntity.ok(users);
     }
 }

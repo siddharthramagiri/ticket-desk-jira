@@ -8,6 +8,7 @@ import com.example.demo.entity.types.Priority;
 import com.example.demo.exceptionHandlers.TicketException;
 import com.example.demo.exceptionHandlers.UserException;
 import com.example.demo.repository.TicketRepository;
+import com.example.demo.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -41,22 +45,7 @@ public class ClientService {
                     .deadLine(ticketDto.deadLine())
                     .build();
 
-            switch (ticketDto.priority().toUpperCase()) {
-                case "LOW":
-                    ticket.setPriority(Priority.LOW);
-                    break;
-                case "MEDIUM":
-                    ticket.setPriority(Priority.MEDIUM);
-                    break;
-                case "HIGH":
-                    ticket.setPriority(Priority.HIGH);
-                    break;
-                case "CRITICAL":
-                    ticket.setPriority(Priority.CRITICAL);
-                    break;
-                default:
-                    throw new TicketException("Invalid Priority Type", HttpStatus.NOT_ACCEPTABLE);
-            }
+            ticket.setPriority(Priority.valueOf(ticketDto.priority().toUpperCase()));
 
             ticket.setCreatedBy(user);
             ticketRepository.save(ticket);
@@ -78,5 +67,23 @@ public class ClientService {
         } catch (TicketException e) {
             throw new TicketException(e.getMessage(), e.getStatus());
         }
+    }
+
+    public ResponseEntity<List<Ticket>> getTicketsCreatedByMe() {
+        try {
+            User user = SecurityUtil.getCurrentUser();
+            List<Ticket> tickets = ticketRepository.getTicketsByCreatedBy(user);
+            return ResponseEntity.ok(tickets);
+        } catch (Exception e) {
+            throw new TicketException("Could not Fetch Tickets", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<Ticket> getTicket(Long id) {
+        if(!ticketRepository.existsById(id)) {
+            throw new TicketException("Ticket Not Found", HttpStatus.NOT_FOUND);
+        }
+        Ticket ticket = ticketRepository.getById(id);
+        return ResponseEntity.ok(ticket);
     }
 }

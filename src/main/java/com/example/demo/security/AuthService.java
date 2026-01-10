@@ -63,11 +63,12 @@ public class AuthService {
             String token = authUtil.generateToken(user);
 
             return ResponseEntity.ok(
-                    new LoginResponseDto(
-                            token,
-                            user.getId(),
-                            user.getRoles().stream().map(Enum::name).collect(Collectors.toSet())
-                    )
+                    LoginResponseDto.builder()
+                            .token(token)
+                            .id(user.getId())
+                            .email(user.getUsername())
+                            .roles(user.getRoles())
+                            .build()
             );
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Invalid username or password", e);
