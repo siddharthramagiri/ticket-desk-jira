@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.dto.tickets.NewTicketDto;
+import com.example.demo.dto.tickets.TicketDto;
 import com.example.demo.entity.Ticket;
 import com.example.demo.service.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping("/my")
-    public ResponseEntity<List<Ticket>> getTicketsCreatedByMe() {
+    public ResponseEntity<List<TicketDto>> getTicketsCreatedByMe() {
         return clientService.getTicketsCreatedByMe();
     }
 

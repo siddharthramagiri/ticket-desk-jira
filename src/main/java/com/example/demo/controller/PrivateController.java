@@ -1,16 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ResponseDto;
+import com.example.demo.dto.projects.NewProjectDto;
 import com.example.demo.dto.projects.ProjectDto;
+import com.example.demo.dto.tickets.TicketDto;
 import com.example.demo.dto.users.UserDto;
 import com.example.demo.entity.types.Role;
 import com.example.demo.service.AdminService;
+import com.example.demo.service.DeveloperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ import java.util.List;
 public class PrivateController {
 
     private final AdminService adminService;
+    private final DeveloperService developerService;
 
     @GetMapping
     public ResponseEntity<ResponseDto> privateRoute() {
@@ -33,6 +34,28 @@ public class PrivateController {
 
     @GetMapping("/projects")
     public ResponseEntity<List<ProjectDto>> fetchProjects() {
-        return adminService.fetchProjects();
+        return developerService.fetchProjects();
     }
+
+    @GetMapping("/myProjects")
+    public ResponseEntity<List<ProjectDto>> fetchMyProjects() {
+        return developerService.fetchMyProjects();
+    }
+
+    @PostMapping("/create-project")
+    public ResponseEntity<ProjectDto> createProject(@RequestBody NewProjectDto newProject) {
+        return developerService.createProject(newProject);
+    }
+
+
+    @GetMapping("/get-my-tickets")
+    public ResponseEntity<List<TicketDto>> getMyTickets() {
+        return developerService.getMyTickets();
+    }
+
+    @GetMapping("/get-project-tickets/{projectId}")
+    public ResponseEntity<List<TicketDto>> getProjectTickets(@PathVariable Long projectId) {
+        return developerService.getProjectTickets(projectId);
+    }
+
 }

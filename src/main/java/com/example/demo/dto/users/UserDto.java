@@ -22,4 +22,9 @@ public class UserDto {
         this.email = user.getUsername();
         this.roles = user.getRoles();
     }
+
+    public UserDto(Long id, String email) {
+        this.id = id;
+        this.email = email;
+    }
 }

@@ -28,9 +28,9 @@ import java.util.Optional;
 public class SupportService {
 
     private final TicketRepository ticketRepository;
-    private final TicketAssigneeRepository ticketAssigneeRepository;
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
+    private final TicketAssigneeRepository ticketAssigneeRepository;
 
     public ResponseEntity<List<TicketDto>> getAllTickets() {
         try {
@@ -84,11 +84,28 @@ public class SupportService {
             ticket.getAssignees().add(assignee);
 
             ticketRepository.save(ticket);
-            ticketAssigneeRepository.save(assignee);
 
             return ResponseEntity.ok(new ResponseDto("Status Updated Successfully"));
         } catch (Exception e) {
             throw new TicketException("Error: Failed to update Ticket", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<ResponseDto> removeAssignee(Long ticketId, Long id) {
+        try {
+            if(!ticketAssigneeRepository.existsById(id) || !ticketRepository.existsById(ticketId)) {
+                throw new TicketException("Ticket or User doesn't exists", HttpStatus.NOT_FOUND);
+            }
+            TicketAssignee assignee = ticketAssigneeRepository.findById(id).get();
+            Ticket ticket = ticketRepository.findById(ticketId).get();
+            ticket.getAssignees().remove(assignee);
+            ticketRepository.save(ticket);
+
+            return ResponseEntity.ok(new ResponseDto("Removed Assignee"));
+
+        } catch (Exception e) {
+            throw new TicketException("Could not remove Assignee", HttpStatus.BAD_GATEWAY);
         }
     }
 }

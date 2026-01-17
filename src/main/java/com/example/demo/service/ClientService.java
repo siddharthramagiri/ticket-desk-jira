@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.dto.tickets.NewTicketDto;
+import com.example.demo.dto.tickets.TicketDto;
 import com.example.demo.entity.Ticket;
 import com.example.demo.entity.User;
 import com.example.demo.entity.types.Priority;
@@ -68,11 +69,13 @@ public class ClientService {
         }
     }
 
-    public ResponseEntity<List<Ticket>> getTicketsCreatedByMe() {
+    public ResponseEntity<List<TicketDto>> getTicketsCreatedByMe() {
         try {
             User user = SecurityUtil.getCurrentUser();
             List<Ticket> tickets = ticketRepository.getTicketsByCreatedBy(user);
-            return ResponseEntity.ok(tickets);
+
+            List<TicketDto> res = tickets.stream().map(TicketDto::new).toList();
+            return ResponseEntity.ok(res);
         } catch (Exception e) {
             throw new TicketException("Could not Fetch Tickets", HttpStatus.NOT_FOUND);
         }

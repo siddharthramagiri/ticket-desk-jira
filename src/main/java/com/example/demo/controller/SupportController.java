@@ -41,4 +41,9 @@ public class SupportController {
             throw new TicketException("Missing userId or projectId", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping("/delete/{ticketId}/assign")
+    public ResponseEntity<ResponseDto> removeAssignee(@PathVariable Long ticketId, @RequestParam Long id) {
+        return supportService.removeAssignee(ticketId, id);
+    }
 }

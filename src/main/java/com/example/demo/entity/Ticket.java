@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Builder
+@ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "tickets")
@@ -47,7 +48,7 @@ public class Ticket {
     private LocalDateTime updatedAt;
     private LocalDateTime deadLine;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TicketAssignee> assignees;
 
     @PrePersist

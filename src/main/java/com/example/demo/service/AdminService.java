@@ -2,12 +2,15 @@ package com.example.demo.service;
 
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.dto.projects.ProjectDto;
+import com.example.demo.dto.tickets.TicketDto;
 import com.example.demo.dto.users.UserDto;
 import com.example.demo.entity.Project;
+import com.example.demo.entity.Ticket;
 import com.example.demo.entity.User;
 import com.example.demo.entity.types.Role;
 import com.example.demo.exceptionHandlers.UserException;
 import com.example.demo.repository.ProjectRepository;
+import com.example.demo.repository.TicketRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,7 @@ public class AdminService {
 
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
+    private final TicketRepository ticketRepository;
 
     public ResponseEntity<ResponseDto> makeAdmin(Long id) {
         Optional<User> optionalUser = userRepository.findUserById(id);
@@ -77,9 +81,7 @@ public class AdminService {
         return ResponseEntity.ok(users);
     }
 
-    public ResponseEntity<List<ProjectDto>> fetchProjects() {
-        List<Project> projectList = projectRepository.findAll();
-        List<ProjectDto> projects = projectList.stream().map(ProjectDto::new).toList();
-        return ResponseEntity.ok(projects);
-    }
+//    public ResponseEntity<List<ProjectDto>> fetchMyProjects() {
+//
+//    }
 }

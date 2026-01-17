@@ -11,7 +11,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({
             ApiException.class,
-            UserException.class
+            UserException.class,
+            DeveloperException.class
     })
     public ResponseEntity<ErrorResponse> handleException(ApiException ex) {
         return ResponseEntity

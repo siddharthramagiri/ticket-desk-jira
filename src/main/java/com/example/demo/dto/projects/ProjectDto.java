@@ -24,4 +24,9 @@ public class ProjectDto {
                 member -> member.getUser().getUsername()
         ).toList();
     }
+
+    public ProjectDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
