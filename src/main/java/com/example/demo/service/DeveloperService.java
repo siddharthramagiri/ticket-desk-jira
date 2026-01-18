@@ -1,18 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ResponseDto;
+import com.example.demo.dto.comment.CommentDto;
 import com.example.demo.dto.projects.NewProjectDto;
 import com.example.demo.dto.projects.ProjectDto;
 import com.example.demo.dto.tickets.TicketDto;
 import com.example.demo.dto.users.UserDto;
-import com.example.demo.entity.Project;
-import com.example.demo.entity.ProjectUser;
-import com.example.demo.entity.Ticket;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import com.example.demo.exceptionHandlers.DeveloperException;
-import com.example.demo.repository.ProjectUserRepository;
-import com.example.demo.repository.ProjectRepository;
-import com.example.demo.repository.TicketRepository;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.*;
 import com.example.demo.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -31,6 +28,7 @@ public class DeveloperService {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final ProjectUserRepository projectUserRepository;
+    private final TicketCommentRepository ticketCommentRepository;
 
     public ResponseEntity<List<ProjectDto>> fetchProjects() {
         List<Project> projectList = projectRepository.findAll();
