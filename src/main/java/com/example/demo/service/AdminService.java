@@ -1,14 +1,17 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ResponseDto;
+import com.example.demo.dto.app.AppDto;
 import com.example.demo.dto.projects.ProjectDto;
 import com.example.demo.dto.tickets.TicketDto;
 import com.example.demo.dto.users.UserDto;
+import com.example.demo.entity.Application;
 import com.example.demo.entity.Project;
 import com.example.demo.entity.Ticket;
 import com.example.demo.entity.User;
 import com.example.demo.entity.types.Role;
 import com.example.demo.exceptionHandlers.UserException;
+import com.example.demo.repository.ApplicationRepository;
 import com.example.demo.repository.ProjectRepository;
 import com.example.demo.repository.TicketRepository;
 import com.example.demo.repository.UserRepository;
@@ -32,6 +35,7 @@ public class AdminService {
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
     private final TicketRepository ticketRepository;
+    private final ApplicationRepository applicationRepository;
 
     public ResponseEntity<ResponseDto> makeAdmin(Long id) {
         Optional<User> optionalUser = userRepository.findUserById(id);
@@ -76,12 +80,20 @@ public class AdminService {
     public ResponseEntity<List<UserDto>> fetchUsersByRole(Role role) {
         List<User> userList = userRepository.findAllByRolesContains(role);
         List<UserDto> users = userList.stream().map(UserDto::new).toList();
-//        for(UserDto user : users)
-//            log.info(user.toString());
         return ResponseEntity.ok(users);
     }
 
-//    public ResponseEntity<List<ProjectDto>> fetchMyProjects() {
-//
-//    }
+    public ResponseEntity<ResponseDto> createApp(String appName) {
+        Application application = Application.builder().name(appName).build();
+        applicationRepository.save(application);
+        return ResponseEntity.ok(new ResponseDto("Created Application Successfully"));
+    }
+
+    public ResponseEntity<List<AppDto>> getAllApps() {
+        List<Application> apps = applicationRepository.findAll();
+        List<AppDto> applications = apps.stream().map(AppDto::new).toList();
+
+        return ResponseEntity.ok(applications);
+    }
+
 }

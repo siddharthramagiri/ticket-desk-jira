@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ResponseDto;
+import com.example.demo.dto.app.AppDto;
 import com.example.demo.dto.tickets.NewTicketDto;
 import com.example.demo.dto.tickets.TicketDto;
 import com.example.demo.entity.Ticket;
@@ -37,6 +38,16 @@ public class ClientController {
     @GetMapping("/ticket/{id}")
     public ResponseEntity<Ticket> getTicket(@PathVariable Long id) {
         return clientService.getTicket(id);
+    }
+
+    @GetMapping("/my-apps")
+    public ResponseEntity<List<AppDto>> getMyApps() {
+        return clientService.getMyApps();
+    }
+
+    @PutMapping("/own-app/{id}")
+    public ResponseEntity<ResponseDto> addApplication(@PathVariable Long id) {
+        return clientService.addApplication(id);
     }
 
 }

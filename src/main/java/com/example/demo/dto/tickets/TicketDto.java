@@ -27,7 +27,7 @@ public class TicketDto {
             this.id = ticket.getId();
             this.title = ticket.getTitle();
             this.description = ticket.getDescription();
-            this.applicationName = ticket.getApplicationName();
+            this.applicationName = ticket.getApplication().getName();
             this.priority = ticket.getPriority().toString();
             this.status = ticket.getStatus().toString();
             this.createdBy = ticket.getCreatedBy().getUsername();

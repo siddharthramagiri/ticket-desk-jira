@@ -30,8 +30,9 @@ public class Ticket {
     @Column(nullable = false, length = 5000)
     private String description;
 
-    @Column(nullable = false)
-    private String applicationName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "application_id", nullable = false)
+    private Application application;
 
     @Enumerated(EnumType.STRING)
     private Priority priority;

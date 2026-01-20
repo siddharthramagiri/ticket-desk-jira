@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public record NewTicketDto(
         String title,
         String description,
-        String applicationName,
+        Long applicationId,
         String priority,
         LocalDateTime deadLine
 ) { }

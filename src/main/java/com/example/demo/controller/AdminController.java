@@ -36,4 +36,9 @@ public class AdminController {
         return adminService.makeAdmin(id);
     }
 
+    @PostMapping("/new-app/{app_name}")
+    public ResponseEntity<ResponseDto> createApp(@PathVariable String app_name) {
+        return adminService.createApp(app_name);
+    }
+
 }

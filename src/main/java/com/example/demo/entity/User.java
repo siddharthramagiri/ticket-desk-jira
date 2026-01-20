@@ -1,16 +1,14 @@
 package com.example.demo.entity;
 
 import com.example.demo.entity.types.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
@@ -40,6 +38,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Set<Role> roles = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    private List<Application> applications = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "createdBy")
