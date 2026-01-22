@@ -1,7 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.ResponseDto;
-import com.example.demo.dto.comment.CommentDto;
 import com.example.demo.dto.projects.NewProjectDto;
 import com.example.demo.dto.projects.ProjectDto;
 import com.example.demo.dto.tickets.TicketDto;
@@ -16,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -28,7 +25,6 @@ public class DeveloperService {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final ProjectUserRepository projectUserRepository;
-    private final TicketCommentRepository ticketCommentRepository;
 
     public ResponseEntity<List<ProjectDto>> fetchProjects() {
         List<Project> projectList = projectRepository.findAll();

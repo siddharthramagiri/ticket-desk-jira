@@ -2,18 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.dto.app.AppDto;
-import com.example.demo.dto.projects.ProjectDto;
-import com.example.demo.dto.tickets.TicketDto;
 import com.example.demo.dto.users.UserDto;
 import com.example.demo.entity.Application;
-import com.example.demo.entity.Project;
-import com.example.demo.entity.Ticket;
 import com.example.demo.entity.User;
 import com.example.demo.entity.types.Role;
 import com.example.demo.exceptionHandlers.UserException;
 import com.example.demo.repository.ApplicationRepository;
-import com.example.demo.repository.ProjectRepository;
-import com.example.demo.repository.TicketRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +27,6 @@ import java.util.stream.Collectors;
 public class AdminService {
 
     private final UserRepository userRepository;
-    private final ProjectRepository projectRepository;
-    private final TicketRepository ticketRepository;
     private final ApplicationRepository applicationRepository;
 
     public ResponseEntity<ResponseDto> makeAdmin(Long id) {

@@ -1,7 +1,5 @@
 package com.example.demo.dto.tickets;
 
-import com.example.demo.dto.projects.ProjectDto;
-import com.example.demo.dto.users.UserDto;
 import com.example.demo.entity.Ticket;
 import lombok.*;
 

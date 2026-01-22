@@ -12,9 +12,7 @@ import com.example.demo.exceptionHandlers.TicketException;
 import com.example.demo.exceptionHandlers.UserException;
 import com.example.demo.repository.ApplicationRepository;
 import com.example.demo.repository.TicketRepository;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.security.SecurityUtil;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,8 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 
 @Slf4j
@@ -33,10 +29,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class ClientService {
 
-//    private UserRepository userRepository;
     private final TicketRepository ticketRepository;
     private final ApplicationRepository applicationRepository;
-    private final UserRepository userRepository;
 
     public ResponseEntity<ResponseDto> addTicket(NewTicketDto ticketDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
